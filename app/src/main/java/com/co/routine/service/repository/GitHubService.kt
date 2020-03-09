@@ -1,7 +1,6 @@
 package com.co.routine.service.repository
 
 import com.co.routine.service.model.Project
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 

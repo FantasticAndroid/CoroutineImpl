@@ -2,7 +2,6 @@ package com.co.routine.view.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.co.routine.MainApp
@@ -17,16 +16,19 @@ class ProjectListAdapter(mainApp: MainApp) :
     private val inflater = LayoutInflater.from(mainApp)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectListViewHolder {
-        val viewDataBinding = DataBindingUtil.inflate<ItemRvBinding>(inflater,R.layout.item_rv,parent,false)
+        val viewDataBinding =
+            DataBindingUtil.inflate<ItemRvBinding>(inflater, R.layout.item_rv, parent, false)
         return ProjectListViewHolder(viewDataBinding)
     }
 
-    fun setProjectList(projectList:List<Project>){
-        val size = itemCount
-        this.projectList.clear()
-        notifyItemRangeRemoved(0,size)
-        this.projectList.addAll(projectList)
-        notifyItemRangeInserted(0,itemCount)
+    fun setProjectList(projectList: List<Project>?) {
+        projectList?.let {
+            val size = itemCount
+            this.projectList.clear()
+            notifyItemRangeRemoved(0, size)
+            this.projectList.addAll(it)
+            notifyItemRangeInserted(0, itemCount)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -38,5 +40,6 @@ class ProjectListAdapter(mainApp: MainApp) :
         holder.viewDataBinding.executePendingBindings()
     }
 
-    class ProjectListViewHolder(val viewDataBinding: ItemRvBinding) : RecyclerView.ViewHolder(viewDataBinding.root)
+    class ProjectListViewHolder(val viewDataBinding: ItemRvBinding) :
+        RecyclerView.ViewHolder(viewDataBinding.root)
 }
