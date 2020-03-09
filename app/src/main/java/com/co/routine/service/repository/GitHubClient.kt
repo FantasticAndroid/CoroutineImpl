@@ -23,11 +23,14 @@ object GitHubClient {
         gitHubService = retrofit.create(GitHubService::class.java)
     }
 
-    public fun getProjectList(userId: String): LiveData<List<Project>> {
+    suspend fun getProjectList(userId: String): LiveData<List<Project>> {
 
         val projectListObs = MutableLiveData<List<Project>>()
 
-        val call = gitHubService.getProjectList(userId)
+        val projectList = gitHubService.getProjectList(userId)
+        projectListObs.postValue(projectList)
+
+        /*val call = gitHubService.getProjectList(userId)
         call.enqueue(object : Callback<List<Project>> {
             override fun onFailure(call: Call<List<Project>>, t: Throwable) {
                 Log.e(TAG, t.message + "onFailure")
@@ -40,8 +43,7 @@ object GitHubClient {
                 Log.d(TAG,  "onResponse")
                 projectListObs.postValue(response.body())
             }
-
-        })
+        })*/
         return projectListObs
     }
 }

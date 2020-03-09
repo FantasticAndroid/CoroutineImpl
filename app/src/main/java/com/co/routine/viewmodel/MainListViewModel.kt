@@ -6,5 +6,13 @@ import com.co.routine.service.repository.GitHubClient
 
 class MainListViewModel(application: Application) : AndroidViewModel(application) {
 
-    val projectListObs = GitHubClient.getProjectList("google")
+    /*public fun getProjectList() {
+
+        return withContext(Dispatchers.IO) {
+
+
+        }
+    }*/
+
+    //val projectListObs = GitHubClient.getProjectList("google")
 }

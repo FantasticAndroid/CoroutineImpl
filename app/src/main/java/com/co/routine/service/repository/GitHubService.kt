@@ -11,5 +11,5 @@ interface GitHubService {
     }
 
     @GET("users/{user}/repos")
-    fun getProjectList(@Path("user") user: String): Call<List<Project>>
+    suspend fun getProjectList(@Path("user") user: String): List<Project>
 }
