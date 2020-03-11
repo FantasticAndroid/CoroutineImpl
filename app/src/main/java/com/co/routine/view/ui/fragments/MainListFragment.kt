@@ -96,14 +96,6 @@ class MainListFragment private constructor() : BaseFragment() {
     }
 
 
-    /*private fun implViewModel(){
-        val mainListViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(mainApp).
-        create(MainListViewModel::class.java)
-        observeViewModel(mainListViewModel)
-    }*/
-    /*private fun observeViewModel(mainListViewModel: MainListViewModel){
-        mainListViewModel.projectListObs.observe(viewLifecycleOwner, Observer {
-            projectListAdapter?.setProjectList(it)
-        })
-    }*/
+
+
 }

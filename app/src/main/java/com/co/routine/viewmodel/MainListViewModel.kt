@@ -2,29 +2,21 @@ package com.co.routine.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import com.co.routine.service.model.Project
-import com.co.routine.service.repository.GitHubService
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
-import java.io.*
-import java.lang.reflect.Type
-import java.net.HttpURLConnection
-import java.net.URL
+import com.co.routine.service.repository.GitHubClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 
 
 class MainListViewModel(application: Application) : AndroidViewModel(application) {
 
-    /*public fun getProjectList() {
+    suspend fun getProjectList() : LiveData<List<Project>> {
 
-        return withContext(Dispatchers.IO) {
-
-
+        val projectListObs = viewModelScope.async(Dispatchers.IO) {
+            GitHubClient.getProjectList("google")
         }
-    }*/
-
-    //val projectListObs = GitHubClient.getProjectList("google")
-
-
-
-
+        return projectListObs.await()
+    }
 }

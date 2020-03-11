@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.co.routine.R
 import com.co.routine.service.repository.GitHubClient
 import com.co.routine.service.repository.GitHubHttpClient
 import com.co.routine.view.ui.ProjectListAdapter
+import com.co.routine.viewmodel.MainListViewModel
 import kotlinx.android.synthetic.main.fragment_main_list.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -85,7 +87,7 @@ class MainListScopeFragment private constructor() : BaseFragment(), CoroutineSco
         projectRv.layoutManager = LinearLayoutManager(mainApp, RecyclerView.VERTICAL, false)
         projectRv.adapter = projectListAdapter
 
-        implCoroutineToGetProjectList4()
+        implCoroutineToGetProjectList5()
     }
 
     private fun implCoroutineToGetProjectList1() {
@@ -138,14 +140,14 @@ class MainListScopeFragment private constructor() : BaseFragment(), CoroutineSco
         }
     }
 
-    /*private fun implViewModel(){
-    val mainListViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(mainApp).
-    create(MainListViewModel::class.java)
-    observeViewModel(mainListViewModel)
-}*/
-    /*private fun observeViewModel(mainListViewModel: MainListViewModel){
-        mainListViewModel.projectListObs.observe(viewLifecycleOwner, Observer {
-            projectListAdapter?.setProjectList(it)
-        })
-    }*/
+    private fun implCoroutineToGetProjectList5(){
+        val mainListViewModel = ViewModelProvider.AndroidViewModelFactory.
+        getInstance(mainApp).create(MainListViewModel::class.java)
+
+        launch {
+            mainListViewModel.getProjectList().observe(viewLifecycleOwner, Observer {
+                projectListAdapter?.setProjectList(it)
+            })
+        }
+    }
 }
